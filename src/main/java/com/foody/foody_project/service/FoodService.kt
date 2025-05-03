@@ -97,4 +97,12 @@ class FoodService(
 
         repository.save(food)
     }
+
+    fun getFoodById(id: String): FoodResponseDto {
+        return converter.toFoodResponseDtoFromEntity(repository.findById(id).get())
+    }
+
+    fun getFoodPriceById(id: String): BigDecimal {
+        return repository.findById(id).get().foodPrice ?: BigDecimal.ZERO
+    }
 }

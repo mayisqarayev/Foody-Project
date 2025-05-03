@@ -10,9 +10,7 @@ class PaymentService(
     private val repository: PaymentRepository,
     private val converter: PaymentConverter
 ) {
-
-    fun addPayment(requestDto: AddPaymentRequestDto) {
-
+    fun addPayment(requestDto: AddPaymentRequestDto?) {
+        repository.save(converter.toEntityFromAddPaymentRequestDto(requestDto))
     }
-
 }
