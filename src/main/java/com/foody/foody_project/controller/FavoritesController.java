@@ -1,0 +1,10 @@
+package com.foody.foody_project.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/favorites")
+public class FavoritesController {
+    private final FavoritesService service;
+}
