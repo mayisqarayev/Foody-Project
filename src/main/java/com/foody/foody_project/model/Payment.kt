@@ -17,7 +17,7 @@ data class Payment(
     var cardNumber: String?,
     var cardCvvCode: String?,
     var cardExpireDate: LocalDate?,
-    val totalPay: BigDecimal?,
+    var totalPay: BigDecimal?,
     var fkCartId: String?,
     var fkAddressId: String?
 ) {

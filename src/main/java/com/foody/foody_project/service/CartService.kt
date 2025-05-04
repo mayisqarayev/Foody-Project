@@ -3,7 +3,6 @@ package com.foody.foody_project.service
 import com.foody.foody_project.converter.CartConverter
 import com.foody.foody_project.dto.response.CartItemResponseDto
 import com.foody.foody_project.model.Cart
-import com.foody.foody_project.model.CartItem
 import com.foody.foody_project.repository.CartRepository
 import org.springframework.stereotype.Service
 
@@ -18,11 +17,12 @@ class CartService(
 
     fun getCartItems(id: String): MutableList<CartItemResponseDto> {
         return repository.findById(id).get().cartItem.stream()
+            .filter { it.foodIsChecked == true }
             .map { converter.toCartItemResponseDtoFromEntity(it) }
             .toList()
     }
 
-    fun submitCart(id: String) {
-
+    fun changeIsPaidById(id: String) {
+        repository.changeIsPaidById(id)
     }
 }

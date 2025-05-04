@@ -24,6 +24,10 @@ class AddressService(
             .toList()
     }
 
+    fun getAddressById(id: String): AddressResponseDto {
+        return converter.toAddressResponseDtoFromEntity(repository.findById(id).get())
+    }
+
     fun addAddress(requestDto: AddAddressRequestDto?) {
         requestDto ?: throw InvalidArgumentException("Request is null")
         repository.save(converter.toEntityFromAddAddressRequestDto(requestDto))

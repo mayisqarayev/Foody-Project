@@ -8,6 +8,7 @@ import com.foody.foody_project.exception.InvalidArgumentException
 import com.foody.foody_project.repository.ReviewRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import kotlin.streams.toList
 
 @Service
@@ -20,8 +21,8 @@ class ReviewService(
     fun sendReviewToFood(requestDto: SendReviewRequestDto) {
         repository.save(converter.toEntityFromSendReviewRequestDto(requestDto))
         foodService.calculateFoodRating(
-            requestDto.reviewPoint,
-            requestDto.receiverId,
+            requestDto.reviewPoint ?: BigDecimal.ZERO,
+            requestDto.receiverId ?: "",
             repository.calculateFoodCount(requestDto.receiverId)
         )
     }
