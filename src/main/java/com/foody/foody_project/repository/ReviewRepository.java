@@ -13,6 +13,6 @@ public interface ReviewRepository extends JpaRepository<Review, String> {
     @Query("""
         select count(r.receiverId) from Review r where r.receiverId = ?1
     """)
-    BigDecimal calculateFoodCount(String foodId);
+    BigDecimal calculateCount(String foodId);
 
 }

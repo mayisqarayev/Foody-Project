@@ -8,6 +8,8 @@ import com.foody.foody_project.service.CartItemService;
 import com.foody.foody_project.service.CartService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class PaymentConverter {
 
@@ -34,6 +36,7 @@ public class PaymentConverter {
                 maskedNumber,
                 maskedCvvCode,
                 entity.getTotalPay(),
+                entity.getPaymentDate(),
                 cartService.getCartItems(entity.getFkCartId()),
                 addressService.getAddressById(entity.getFkAddressId())
         );
@@ -47,6 +50,7 @@ public class PaymentConverter {
         entity.setCardCvvCode(requestDto.getCard().getCardCvvCode());
         entity.setCardExpireDate(requestDto.getCard().getCardExpireDate());
         entity.setTotalPay(cartItemService.calculateTotalPrice(requestDto.getCartId()));
+        entity.setPaymentDate(LocalDateTime.now());
         entity.setFkCartId(requestDto.getCartId());
         entity.setFkAddressId(requestDto.getAddressId());
 

@@ -15,15 +15,16 @@ import kotlin.streams.toList
 class ReviewService(
     private val repository: ReviewRepository,
     private val converter: ReviewConverter,
-    private val foodService: FoodService
+    private val foodService: FoodService,
+    private val restaurantService: RestaurantService
 ) {
 
     fun sendReviewToFood(requestDto: SendReviewRequestDto) {
-        repository.save(converter.toEntityFromSendReviewRequestDto(requestDto))
+        repository.save(converter.toEntityFromSendReviewRequestDtoFood(requestDto))
         foodService.calculateFoodRating(
             requestDto.reviewPoint ?: BigDecimal.ZERO,
             requestDto.receiverId ?: "",
-            repository.calculateFoodCount(requestDto.receiverId)
+            repository.calculateCount(requestDto.receiverId)
         )
     }
 
@@ -36,6 +37,36 @@ class ReviewService(
 
         val reviews = reviewsPage.content.stream()
             .filter { it.receiverId == foodId }
+            .toList()
+
+        return PageResponseDto(
+            reviewsPage.totalPages,
+            reviewsPage.totalElements,
+            reviewsPage.isEmpty,
+            reviews.stream()
+                .map { converter.toReviewResponseDtoFromEntity(it) }
+                .toList()
+        )
+    }
+
+    fun sendReviewToRestaurant(requestDto: SendReviewRequestDto) {
+        repository.save(converter.toEntityFromSendReviewRequestDtoRestaurant(requestDto))
+        restaurantService.calculateRestaurantRating(
+            requestDto.reviewPoint ?: BigDecimal.ZERO,
+            requestDto.receiverId ?: "",
+            repository.calculateCount(requestDto.receiverId)
+        )
+    }
+
+    fun getReviewsByRestaurantId(restaurantId: String?, requestDto: PageRequestDto?): PageResponseDto {
+        requestDto ?: InvalidArgumentException("Request is null")
+        val reviewsPage = repository.findAll(PageRequest.of(
+            requestDto?.pageNumber ?: 0,
+            requestDto?.pageSize ?: 0
+        ))
+
+        val reviews = reviewsPage.content.stream()
+            .filter { it.receiverId == restaurantId }
             .toList()
 
         return PageResponseDto(

@@ -3,7 +3,6 @@ package com.foody.foody_project.service
 import com.foody.foody_project.converter.FoodConverter
 import com.foody.foody_project.dto.request.FilterFoodRequestDto
 import com.foody.foody_project.dto.response.FoodResponseDto
-import com.foody.foody_project.exception.InvalidArgumentException
 import com.foody.foody_project.repository.FoodRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -14,7 +13,6 @@ class FoodService(
     private val converter: FoodConverter,
     private val categoryService: CategoryService
 ) {
-
     fun getFoodsByFilterByPrice(requestDto: FilterFoodRequestDto): List<FoodResponseDto> {
         val foodsBetweenPrice = repository.findAllFoodsBetweenPriceDesc(
             requestDto.minPrice, requestDto.maxPrice

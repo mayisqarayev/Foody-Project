@@ -18,12 +18,25 @@ public class ReviewConverter {
         this.userService = userService;
     }
 
-    public Review toEntityFromSendReviewRequestDto(SendReviewRequestDto requestDto) {
+    public Review toEntityFromSendReviewRequestDtoFood(SendReviewRequestDto requestDto) {
         Review entity = new Review();
         entity.setReviewText(requestDto.getReviewText());
         entity.setSenderUserId(requestDto.getSenderUserId());
         entity.setReceiverId(requestDto.getReceiverId());
         entity.setReceiverType(ReceiverType.FOOD);
+        entity.setReviewDate(LocalDate.now());
+        entity.setReviewStatus(true);
+        entity.setReviewPoint(requestDto.getReviewPoint());
+
+        return entity;
+    }
+
+    public Review toEntityFromSendReviewRequestDtoRestaurant(SendReviewRequestDto requestDto) {
+        Review entity = new Review();
+        entity.setReviewText(requestDto.getReviewText());
+        entity.setSenderUserId(requestDto.getSenderUserId());
+        entity.setReceiverId(requestDto.getReceiverId());
+        entity.setReceiverType(ReceiverType.RESTAURANT);
         entity.setReviewDate(LocalDate.now());
         entity.setReviewStatus(true);
         entity.setReviewPoint(requestDto.getReviewPoint());

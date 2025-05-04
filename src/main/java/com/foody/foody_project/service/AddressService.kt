@@ -28,6 +28,10 @@ class AddressService(
         return converter.toAddressResponseDtoFromEntity(repository.findById(id).get())
     }
 
+    fun getAddressIdByStreetName(streetName: String): String {
+        return repository.getAddressIdByStreetName(streetName)
+    }
+
     fun addAddress(requestDto: AddAddressRequestDto?) {
         requestDto ?: throw InvalidArgumentException("Request is null")
         repository.save(converter.toEntityFromAddAddressRequestDto(requestDto))

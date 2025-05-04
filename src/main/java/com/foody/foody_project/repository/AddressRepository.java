@@ -33,6 +33,11 @@ public interface AddressRepository extends JpaRepository<Address, String> {
     """)
     void deleteAddressById(String id);
 
+
+    @Query("""
+        select a.id from Address a where a.streetName = ?1
+    """)
+    String getAddressIdByStreetName(String streetName);
 }
 
 

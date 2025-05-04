@@ -6,14 +6,13 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-data class Order(
+data class RestaurantFood(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: String?,
-    var fkUserId: String?,
     var fkRestaurantId: String?,
-    var fkPaymentId: String?,
-    var orderStatus: Boolean?
+    var fkFoodId: String?,
+    var relationStatus: Boolean?
 ) {
-    constructor(): this(null, null, null, null, null)
+    constructor(): this(null, null ,null , null)
 }
