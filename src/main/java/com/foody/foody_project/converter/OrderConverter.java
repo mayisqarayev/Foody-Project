@@ -4,7 +4,7 @@ import com.foody.foody_project.dto.request.AddOrderRequestDto;
 import com.foody.foody_project.dto.response.OrderResponseDto;
 import com.foody.foody_project.dto.response.PaymentResponseDto;
 import com.foody.foody_project.dto.response.RestaurantResponseDto;
-import com.foody.foody_project.model.Order;
+import com.foody.foody_project.model.OrderEntity;
 import com.foody.foody_project.service.PaymentService;
 import com.foody.foody_project.service.RestaurantService;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class OrderConverter {
         this.paymentService = paymentService;
     }
 
-    public OrderResponseDto toOrderResponseDtoFromEntity(Order entity) {
+    public OrderResponseDto toOrderResponseDtoFromEntity(OrderEntity entity) {
         RestaurantResponseDto restaurant = restaurantService.getRestaurantById(entity.getFkRestaurantId());
         PaymentResponseDto payment = paymentService.getPaymentDetails(entity.getFkPaymentId());
         int size = payment.getCart().size();
@@ -35,8 +35,8 @@ public class OrderConverter {
         );
     }
 
-    public Order toEntityFromAddOrderRequestDto(AddOrderRequestDto requestDto) {
-        Order entity = new Order();
+    public OrderEntity toEntityFromAddOrderRequestDto(AddOrderRequestDto requestDto) {
+        OrderEntity entity = new OrderEntity();
         entity.setFkPaymentId(requestDto.getPaymentId());
         entity.setOrderStatus(true);
         entity.setFkRestaurantId(requestDto.getRestaurantId());

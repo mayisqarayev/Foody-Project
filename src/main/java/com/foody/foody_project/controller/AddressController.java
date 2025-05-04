@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/address")
 public class AddressController {
-
     private final AddressService service;
-
     public AddressController(AddressService service) {
         this.service = service;
     }

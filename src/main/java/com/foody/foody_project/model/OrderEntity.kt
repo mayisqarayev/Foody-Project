@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-data class Order(
+data class OrderEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: String?,
