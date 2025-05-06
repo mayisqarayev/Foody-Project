@@ -1,6 +1,6 @@
 package com.foody.foody_project.dto.response
 
-data class FavoritesResponseDto(
+data class FavoriteResponseDto(
     val user: UserResponseDto?,
-    val receiver: FoodResponseDto?,
+    val receiver: RestaurantResponseDto?,
 )

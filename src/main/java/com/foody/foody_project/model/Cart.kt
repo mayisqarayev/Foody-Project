@@ -8,6 +8,7 @@ data class Cart(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: String?,
     var isPaid: Boolean? = false,
+    var fkUserId: String?,
     @OneToMany(
         mappedBy = "fkCartId",
         fetch = FetchType.LAZY,
@@ -16,5 +17,5 @@ data class Cart(
     )
     val cartItem: MutableList<CartItem> = mutableListOf()
 ) {
-    constructor() : this(null, null, mutableListOf())
+    constructor() : this(null, null, null, mutableListOf())
 }

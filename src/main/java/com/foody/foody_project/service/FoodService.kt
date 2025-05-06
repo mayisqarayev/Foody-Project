@@ -78,6 +78,14 @@ class FoodService(
             .toList()
     }
 
+    fun getFoodById(id: String): FoodResponseDto {
+        return converter.toFoodResponseDtoFromEntity(repository.findById(id).get())
+    }
+
+    fun getFoodPriceById(id: String): BigDecimal {
+        return repository.findById(id).get().foodPrice ?: BigDecimal.ZERO
+    }
+
     fun calculateFoodRating(point: BigDecimal, id: String, countOfReview: BigDecimal) {
         val food = repository.findById(id).get()
         val foodRating = food.foodRating
@@ -94,13 +102,5 @@ class FoodService(
         }
 
         repository.save(food)
-    }
-
-    fun getFoodById(id: String): FoodResponseDto {
-        return converter.toFoodResponseDtoFromEntity(repository.findById(id).get())
-    }
-
-    fun getFoodPriceById(id: String): BigDecimal {
-        return repository.findById(id).get().foodPrice ?: BigDecimal.ZERO
     }
 }

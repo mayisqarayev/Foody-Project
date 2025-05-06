@@ -2,6 +2,7 @@ package com.foody.foody_project.service
 
 import com.foody.foody_project.converter.CartItemConverter
 import com.foody.foody_project.dto.request.AddCartItemRequestDto
+import com.foody.foody_project.dto.response.CartItemResponseDto
 import com.foody.foody_project.repository.CartItemRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -10,9 +11,15 @@ import java.math.BigDecimal
 class CartItemService(
     private val repository: CartItemRepository,
     private val converter: CartItemConverter,
-    private val foodService: FoodService
+    private val foodService: FoodService,
+    private val cartService: CartService
 ) {
-    fun addToCart(requestDto: AddCartItemRequestDto) {
+
+    fun getCartItems(cartId: String): List<CartItemResponseDto> {
+        return cartService.getCartItems(cartId)
+    }
+
+    fun addCartItem(requestDto: AddCartItemRequestDto) {
         repository.save(converter.toEntityFromAddCartItemRequestDto(requestDto))
     }
 

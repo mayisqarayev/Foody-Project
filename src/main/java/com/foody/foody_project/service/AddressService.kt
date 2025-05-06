@@ -24,10 +24,12 @@ class AddressService(
             .toList()
     }
 
+    //Is not API
     fun getAddressById(id: String): AddressResponseDto {
         return converter.toAddressResponseDtoFromEntity(repository.findById(id).get())
     }
 
+    //Is not API
     fun getAddressIdByStreetName(streetName: String): String {
         return repository.getAddressIdByStreetName(streetName)
     }

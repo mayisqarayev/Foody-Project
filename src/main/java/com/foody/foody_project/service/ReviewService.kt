@@ -58,7 +58,7 @@ class ReviewService(
         )
     }
 
-    fun getReviewsByRestaurantId(restaurantId: String?, requestDto: PageRequestDto?): PageResponseDto {
+        fun getReviewsByRestaurantId(restaurantId: String?, requestDto: PageRequestDto?): PageResponseDto {
         requestDto ?: InvalidArgumentException("Request is null")
         val reviewsPage = repository.findAll(PageRequest.of(
             requestDto?.pageNumber ?: 0,

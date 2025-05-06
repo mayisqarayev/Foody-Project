@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class CategoryTypeService(private val repository: CategoryTypeRepository) {
-
     fun getCategory(id: String?): CategoryType {
         id ?: throw InvalidArgumentException("Id is null")
         return repository.findById(id).get()

@@ -2,11 +2,13 @@ package com.foody.foody_project.service
 
 import com.foody.foody_project.converter.FavoritesConverter
 import com.foody.foody_project.dto.request.AddFavoritesRequestDto
+import com.foody.foody_project.dto.response.FavoriteResponseDto
 import com.foody.foody_project.dto.response.FavoritesResponseDto
 import com.foody.foody_project.model.Favorites
 import com.foody.foody_project.model.ReceiverType
 import com.foody.foody_project.repository.FavoritesRepository
 import org.springframework.stereotype.Service
+import kotlin.streams.toList
 
 @Service
 class FavoritesService(
@@ -45,8 +47,13 @@ class FavoritesService(
         repository.removeItemFromFavorites(foodId)
     }
 
-    fun getFavoriteRestaurantsByUserId(userId: String) {
+    fun getFavoriteRestaurantsByUserId(userId: String): List<FavoriteResponseDto> {
+        val favorites = repository.findAll()
 
+        return favorites.stream()
+            .filter { (it.userId == userId) && (it.status == true)}
+            .map { converter.toFavoriteResponseDtoFromEntity(it) }
+            .toList()
     }
 
     fun removeRestaurantFromFavorites(restaurantId: String) {

@@ -13,4 +13,6 @@ public class CategoryTypeController {
     public CategoryTypeController(CategoryTypeService service) {
         this.service = service;
     }
+
+
 }
