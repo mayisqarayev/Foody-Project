@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, String> {
         set u.fullName = ?1, u.email = ?2, u.photo = ?3, u.photo = ?4 where u.id = ?5
     """)
     void updateProfile(String fullName, String email, String photo, String phone, String id);
+
+    User findUserByUsername(String username);
 }

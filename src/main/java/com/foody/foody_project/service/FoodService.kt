@@ -15,11 +15,10 @@ class FoodService(
 ) {
     fun getFoodsByFilterByPrice(requestDto: FilterFoodRequestDto): List<FoodResponseDto> {
         val foodsBetweenPrice = repository.findAllFoodsBetweenPriceDesc(
-            requestDto.minPrice, requestDto.maxPrice
-        );
+            requestDto.categoryId, requestDto.minPrice, requestDto.maxPrice
+        )
 
         return foodsBetweenPrice.stream()
-            .filter { it.fkCategoryId == requestDto.categoryId }
             .map { converter.toFoodResponseDtoFromEntity(it) }
             .toList()
     }

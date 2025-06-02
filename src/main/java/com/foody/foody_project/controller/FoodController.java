@@ -18,22 +18,22 @@ public class FoodController {
         this.service = service;
     }
 
-    @GetMapping("/price")
+    @PostMapping("/price")
     public List<FoodResponseDto> getFoodsByPrice(@RequestBody FilterFoodRequestDto requestDto) {
         return service.getFoodsByFilterByPrice(requestDto);
     }
 
-    @GetMapping("/price-asc")
+    @PostMapping("/price-asc")
     public List<FoodResponseDto> getFoodsByPriceAsc(@RequestBody FilterFoodRequestDto requestDto) {
         return service.getFoodsByFilterByPriceAsc(requestDto);
     }
 
-    @GetMapping("/rating")
+    @PostMapping("/rating")
     public List<FoodResponseDto> getFoodsByRating(@RequestBody FilterFoodRequestDto requestDto) {
         return service.getFoodsByFilterByRatingDesc(requestDto);
     }
 
-    @GetMapping("/rating-asc")
+    @PostMapping("/rating-asc")
     public List<FoodResponseDto> getFoodsByRatingAsc(@RequestBody FilterFoodRequestDto requestDto) {
         return service.getFoodsByFilterByRatingAsc(requestDto);
     }

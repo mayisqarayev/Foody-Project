@@ -1,5 +1,6 @@
 package com.foody.foody_project.controller;
 
+import com.foody.foody_project.dto.request.CreateUserRequestDto;
 import com.foody.foody_project.dto.request.UpdateUserPhoneRequestDto;
 import com.foody.foody_project.dto.request.UpdateUserRequestDto;
 import com.foody.foody_project.dto.response.UserResponseDto;
@@ -13,6 +14,11 @@ public class UserController {
 
     public UserController(UserService service) {
         this.service = service;
+    }
+
+    @PostMapping
+    public void createUser(@RequestBody CreateUserRequestDto requestDto) {
+        service.createProfile(requestDto);
     }
 
     @PutMapping("/update/profile")

@@ -1,12 +1,14 @@
 package com.foody.foody_project.service
 
 import com.foody.foody_project.converter.UserConverter
+import com.foody.foody_project.dto.request.CreateUserRequestDto
 import com.foody.foody_project.dto.request.UpdateUserPhoneRequestDto
 import com.foody.foody_project.dto.request.UpdateUserRequestDto
 import com.foody.foody_project.dto.response.ForReviewUserResponseDto
 import com.foody.foody_project.dto.response.UserResponseDto
 import com.foody.foody_project.exception.InvalidArgumentException
 import com.foody.foody_project.exception.UserNotFoundException
+import com.foody.foody_project.model.User
 import com.foody.foody_project.repository.UserRepository
 import org.springframework.stereotype.Service
 
@@ -15,6 +17,15 @@ class UserService(
     private val repository: UserRepository,
     private val converter: UserConverter
 ) {
+
+    fun createProfile(requestDto: CreateUserRequestDto?) {
+        repository.save(converter.toEntityFromCreateUserRequestDto(requestDto))
+    }
+
+    fun getProfileByUsername(username: String?): User {
+        return repository.findUserByUsername(username)
+    }
+
     fun getProfile(id: String?): UserResponseDto {
         id ?: throw InvalidArgumentException("Id is null")
         return converter.toUserResponseDtoFromEntity(
@@ -42,7 +53,9 @@ class UserService(
     }
 
     fun getUsernameAndPhotoById(id: String?): ForReviewUserResponseDto {
-        val user = repository.findById(id).get()
+        id ?: throw InvalidArgumentException("Id is null")
+        val user = repository.findById(id)
+            .orElseThrow{ UserNotFoundException("User not found") }
         return ForReviewUserResponseDto(
             user.fullName,
             user.photo

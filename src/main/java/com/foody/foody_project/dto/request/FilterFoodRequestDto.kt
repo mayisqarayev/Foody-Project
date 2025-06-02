@@ -4,6 +4,6 @@ import java.math.BigDecimal
 
 data class FilterFoodRequestDto(
     val categoryId: String?,
-    val minPrice: BigDecimal? = BigDecimal.ZERO,
-    val maxPrice: BigDecimal? = BigDecimal.ZERO
+    val minPrice: BigDecimal?,
+    val maxPrice: BigDecimal?
 )

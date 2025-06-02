@@ -13,9 +13,10 @@ import java.util.List;
 public interface FoodRepository extends JpaRepository<Food, String> {
 
     @Query("""
-        select a from Food a where a.foodPrice between ?1 and ?2 order by a.foodPrice desc
+        select a from Food a where (a.foodPrice between ?2 and ?3) and a.fkCategoryId = ?1
+        order by a.foodPrice desc
     """)
-    List<Food> findAllFoodsBetweenPriceDesc(BigDecimal minPrice, BigDecimal maxPrice);
+    List<Food> findAllFoodsBetweenPriceDesc(String categoryId, BigDecimal minPrice, BigDecimal maxPrice);
 
     @Query("""
         select a from Food a where a.foodPrice between ?1 and ?2 order by a.foodPrice asc
